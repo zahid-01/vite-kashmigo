@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IoIosClock } from "react-icons/io";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import BASE_URI from "../api";
+import { NavLink } from "react-router-dom";
 
 function Activity() {
   const [packages, setPackages] = useState([]);
@@ -58,48 +59,47 @@ function Activity() {
       {packages.length > 0 &&
         packages.map((activity, index) => {
           return (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
-              onClick={() =>
-                (window.location.href = `/tour-activity/${activity.id}`)
-              }
-            >
-              <div className="relative group">
-                <img
-                  src={activity.pictures[0]}
-                  width={500}
-                  height={300}
-                  alt={activity.activityName || "Activity Image"}
-                  className="w-full h-32 sm:h-40 md:h-48 object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-                  {activity.activityName}
-                </h3>
-                <ul className="mt-2 text-sm sm:text-base font-normal leading-[21.6px] text-[#2D2D2D] space-y-2">
-                  <li className="flex items-center gap-2">
-                    <IoIosClock className="justify-center" />
-                    Duration: {activity.duration}
-                  </li>
-                </ul>
-                <div className="mt-4 flex items-center justify-between">
-                  {activity.averageRating
-                    ? renderStars(activity.averageRating)
-                    : "No Ratings"}
-                  <span className="text-[#7BBCB0] font-bold mr-7">
-                    &#8377; {activity.price}
-                  </span>
+            <NavLink key={index}>
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
+              >
+                <div className="relative group">
+                  <img
+                    src={activity.pictures[0]}
+                    width={500}
+                    height={300}
+                    alt={activity.activityName || "Activity Image"}
+                    className="w-full h-32 sm:h-40 md:h-48 object-cover transition-transform duration-1000 group-hover:scale-110"
+                  />
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#778088]">
-                    {activity.numberOfReviews} reviews
-                  </span>
-                  <span className="text-[#778088] font-bold">per person</span>
+                <div className="p-4">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
+                    {activity.activityName}
+                  </h3>
+                  <ul className="mt-2 text-sm sm:text-base font-normal leading-[21.6px] text-[#2D2D2D] space-y-2">
+                    <li className="flex items-center gap-2">
+                      <IoIosClock className="justify-center" />
+                      Duration: {activity.duration}
+                    </li>
+                  </ul>
+                  <div className="mt-4 flex items-center justify-between">
+                    {activity.averageRating
+                      ? renderStars(activity.averageRating)
+                      : "No Ratings"}
+                    <span className="text-[#7BBCB0] font-bold mr-7">
+                      &#8377; {activity.price}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-[#778088]">
+                      {activity.numberOfReviews} reviews
+                    </span>
+                    <span className="text-[#778088] font-bold">per person</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </NavLink>
           );
         })}
     </div>

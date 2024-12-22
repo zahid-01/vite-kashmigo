@@ -164,7 +164,7 @@ export default function App() {
             <div className="mt-[200px] mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4">
               {tours.length > 0 &&
                 tours.map((tour, index) => (
-                  <NavLink to={`/tour/${tour.id}`} key={index}>
+                  <NavLink to="/tour" state={{ id: tour.id }} key={index}>
                     <TourCards tour={tour} />
                   </NavLink>
                 ))}

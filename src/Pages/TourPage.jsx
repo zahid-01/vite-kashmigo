@@ -1,18 +1,14 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Map from "../../../../public/assets/map.png";
 import { IoLocationOutline } from "react-icons/io5";
-
 import axios from "axios";
-import { BASE_URI } from "../../web/beConfig";
-import { useParams } from "next/navigation";
-import BookingForm from "@/app/components/BookingForm";
+import { useLocation } from "react-router-dom";
+import BASE_URI from "../api";
+import BookingForm from "../Components/BookingForm";
 
-const TourDetails = () => {
-  const params = useParams();
-
+const TourPage = () => {
+  const location = useLocation();
+  const params = location.state;
   const [tour, setTour] = useState(null);
 
   useEffect(() => {
@@ -24,7 +20,7 @@ const TourDetails = () => {
         setTour(res.data.data);
       },
       (err) => {
-        console.log(err);
+        console.log(err.data);
       }
     );
   }, [params.id]);
@@ -38,7 +34,7 @@ const TourDetails = () => {
   }
 
   return (
-    <div className="flex py-5 md:flex-row flex-col">
+    <div className="flex py-5 md:flex-row flex-col container mx-auto">
       <div className="min-h-screen">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-medium mb-2">{tour.packageName}</h1>
@@ -57,15 +53,10 @@ const TourDetails = () => {
           </div>
           <div className="flex flex-col lg:flex-row">
             <div className="">
-              <Image
-                src={tour.pictures[0]}
-                alt="dal"
-                width={770}
-                height={460}
-              />
+              <img src={tour.pictures[0]} alt="dal" width={770} height={460} />
               <div className="flex space-x-3 mt-4">
                 {tour.pictures.map((picture, idx) => (
-                  <Image
+                  <img
                     key={idx}
                     src={picture}
                     alt={`Thumbnail ${idx + 1}`}
@@ -237,9 +228,10 @@ const TourDetails = () => {
                         <div className="h-[8px] w-[8px] bg-[#495560] rounded-full mt-1"></div>
                       </span> */}
                       Meet your guide inside the west entrance of Altab Ali Park
-                      (Whitechapel Road). It's opposite the entrance to Aldgate
-                      East Tube Station and the Whitechapel Gallery. Look for a
-                      guide wearing SMT attire and holding a red SMT flag.
+                      (Whitechapel Road). It&lsquo;s opposite the entrance to
+                      Aldgate East Tube Station and the Whitechapel Gallery.
+                      Look for a guide wearing SMT attire and holding a red SMT
+                      flag.
                     </div>
                     <div className="text-[#56C2C3] text-[18px] font-semibold mt-8">
                       <a
@@ -255,11 +247,11 @@ const TourDetails = () => {
                 </section>
 
                 <div className="w-[740px]">
-                  <Image
+                  <img
                     alt="Map showing the meeting point location"
                     className="w-auto h-auto p-0 m-0"
                     height={340}
-                    src={Map}
+                    src="https://kashmigo-tours.s3.ap-south-1.amazonaws.com/map.png"
                     width={740}
                   />
                 </div>
@@ -277,4 +269,4 @@ const TourDetails = () => {
   );
 };
 
-export default TourDetails;
+export default TourPage;
